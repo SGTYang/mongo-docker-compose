@@ -7,10 +7,10 @@ services:
     ports:
       - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo admin -u ${DB_USERNAME} -p {DB_PASSWORD} --quiet | grep 1
+      test: echo 'db.runCommand({serverStatus:1}).ok' | mongo admin -u ${DB_USERNAME} -p ${DB_PASSWORD} --quiet | grep 1
       interval: 15s
       timeout: 10s
       retries: 5
